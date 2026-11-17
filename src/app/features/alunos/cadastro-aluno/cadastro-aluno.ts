@@ -1,46 +1,35 @@
-// cadastro-aluno.ts - FORMULÁRIO REATIVO (Reactive Forms): a estrutura do form é criada AQUI no TypeScript.
-// Criado com: ng generate component pages/cadastro-aluno
-import { DatePipe, UpperCasePipe } from '@angular/common';
+// cadastro-aluno.ts - FORMULÁRIO REATIVO (Semana 5). Semana 6: mudou para features/alunos.
+// ReactiveFormsModule e os pipes (uppercase, date, cep) agora chegam pelo SharedModule.
 import { Component, inject, signal } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Aluno } from '../../models/aluno';
-import { Endereco } from '../../models/endereco';
-import { CepPipe } from '../../pipes/cep-pipe';
-import { CepService } from '../../services/cep-service';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { CepService } from '@core/services/cep-service';
+import { Aluno, Endereco, SharedModule } from '@shared';
 
 @Component({
   selector: 'app-cadastro-aluno',
-  imports: [ReactiveFormsModule, UpperCasePipe, DatePipe, CepPipe],
+  imports: [SharedModule],
   templateUrl: './cadastro-aluno.html',
   styleUrl: './cadastro-aluno.css',
 })
 export class CadastroAluno {
-  // INJEÇÃO DE DEPENDÊNCIA: o Angular entrega prontos o FormBuilder e o nosso CepService.
   private fb = inject(NonNullableFormBuilder);
   private cepService = inject(CepService);
 
-  // Opções do <select> de curso (usadas com @for no HTML).
   readonly cursos = ['Angular', 'React', 'Java', 'Python', 'Banco de Dados'];
 
   form = this.fb.group({
-    nome:
-      ['', [Validators.required, Validators.minLength(3)]],
-    email:
-      ['', [Validators.required, Validators.email]],
+    nome: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
     telefone: ['', [Validators.required, Validators.pattern(/^\d{10,11}$/)]],
-    curso:
-      ['', Validators.required],
-    cep:
-      ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
+    curso: ['', Validators.required],
+    cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
   });
 
-  // Estado da tela com signals (o HTML atualiza sozinho quando o valor muda).
   alunoSalvo = signal<Aluno | null>(null);
   endereco = signal<Endereco | null>(null);
   carregando = signal(false);
   erroCep = signal('');
 
-  // true quando o campo está inválido E o usuário já passou por ele (usado para mostrar as mensagens de erro).
   invalido(campo: string): boolean {
     const controle = this.form.get(campo);
     return !!controle && controle.invalid && controle.touched;
@@ -51,7 +40,7 @@ export class CadastroAluno {
       this.form.markAllAsTouched();
       return;
     }
-    const dados = this.form.getRawValue() as Omit<Aluno, 'cadastradoEm'>;
+    const dados = this.form.getRawValue();
     this.alunoSalvo.set({ ...dados, cadastradoEm: new Date() });
   }
 
@@ -62,9 +51,8 @@ export class CadastroAluno {
     this.erroCep.set('');
   }
 
-  // Chamado pelo botão "Buscar CEP".
   buscarCep(): void {
-    const cep = String(this.form.get('cep')?.value ?? '').replace(/\D/g, ''); // deixa só os números
+    const cep = String(this.form.controls.cep.value ?? '').replace(/\D/g, '');
     this.endereco.set(null);
     this.erroCep.set('');
 
@@ -73,7 +61,6 @@ export class CadastroAluno {
       return;
     }
 
-    // TODO 5 (API) - parte B: APAGUE a linha "this.erroCep.set('A busca...')" abaixo e escreva no lugar:
     this.carregando.set(true);
     this.cepService.buscar(cep).subscribe({
       next: (resposta) => {
@@ -89,7 +76,5 @@ export class CadastroAluno {
         this.erroCep.set('Não foi possível consultar o CEP. Verifique a internet.');
       },
     });
-    // Lembre: sem .subscribe() a requisição NÃO sai (Observable é "preguiçoso").
-    return;
   }
 }
