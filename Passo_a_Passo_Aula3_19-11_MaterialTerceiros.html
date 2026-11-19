@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Passo a Passo Aula 3</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+
+  .pausa{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .pausa .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .tela{background:#fff;border:1px dashed #90a4ae;border-radius:4px;padding:8px 14px;margin:10px 0;font-size:12.8px}
+  .tela .titulo{font-weight:bold;color:#455a64;display:block;margin-bottom:3px}
+  .minuto{display:inline-block;background:var(--navy);color:#fff;font-size:11.5px;font-weight:bold;padding:2px 9px;border-radius:3px;margin-right:6px}
+  table.compacta td,table.compacta th{padding:5px 8px;font-size:12px}
+
+  .fluxo-caixa{border:2px solid #1b4f72;border-radius:8px;padding:10px 12px;background:#fff;font-size:12px}
+  .fluxo-caixa h4{margin:0 0 4px;color:#1b4f72;font-size:13px}
+  .linha{display:flex;gap:10px;align-items:stretch;margin:10px 0;flex-wrap:wrap}
+  .linha > .fluxo-caixa{flex:1;min-width:150px}
+  .seta{align-self:center;color:#2a9d8f;font-weight:bold;font-size:20px}
+  .verde{border-color:#2a9d8f}.verde h4{color:#1d7a6e}
+  .laranja{border-color:#e08e00;background:#fff8e6}.laranja h4{color:#8a5c00}
+  .azul{border-color:#4fa3e0;background:#eaf4fc}.azul h4{color:#1b5e8f}
+  .roxo{border-color:#7e57c2;background:#f3eefb}.roxo h4{color:#5e35b1}
+  .cabeca-secao{background:#1b4f72;color:#fff;padding:9px 14px;border-radius:6px;font-size:16px;margin:26px 0 10px}
+
+/* extras M2S06 */
+.cron td:first-child{white-space:nowrap;font-weight:bold;color:var(--navy)}
+.cron td.slides{white-space:nowrap}
+.passo{border:1px solid #cfd8dc;border-radius:6px;padding:12px 16px;margin:14px 0}
+.passo h4{margin:0 0 6px;color:var(--navy-dark);font-size:14.5px}
+.passo .arq{font-size:12px;color:#455a64;margin-bottom:6px}
+.analogia{background:#f3eefb;border-left:4px solid #7e57c2;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+.analogia .titulo{font-weight:bold;color:#5e35b1;display:block;margin-bottom:3px}
+.capa-dia{background:var(--navy);color:#fff;border-radius:6px;padding:14px 18px;margin:30px 0 14px}
+.capa-dia h2{margin:0;font-size:19px}
+.capa-dia p{margin:4px 0 0;font-size:13px;color:#dce9f7}
+pre{page-break-inside:avoid}
+/* tabelas "comando | o que faz" */
+table.cmd td:first-child{width:50%}
+table.cmd td:first-child code{display:block;white-space:pre-wrap;word-break:break-word;background:#1e1e1e;color:#f8f8f2;padding:6px 9px;border-radius:4px;font-size:11.6px}
+table.cmd tr{page-break-inside:avoid}
+.cenario{border:2px solid var(--navy);border-radius:6px;padding:4px 14px 10px;margin:12px 0}
+.cenario h4{color:var(--navy);margin:10px 0 4px;font-size:14px}
+.passo,.fala,.dica,.atencao,.analogia,.pergunta,.erro-comum{page-break-inside:avoid}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Aula 3 · Passo a passo da prática</h1>
+<p class="subtitle">Angular Material (tema M3 e componentes) e biblioteca de terceiros (ngx-mask)</p>
+<p class="meta">19/11/2026 · Prática: ~65 min · Angular 22 · Repositório <b>M2S06</b> → pasta <code>Aula3_MaterialTerceiros/src</code> · Executar no <b>seu</b> <code>projeto-angular-sctec</code> (com as Aulas 1 e 2 concluídas) · <b>Precisa de internet</b></p>
+
+<div class="obj-encontro"><b>Objetivo:</b> instalar e configurar o Angular Material e a ngx-mask; aplicar um tema Material 3 personalizado; transformar o cabeçalho, os cartões de cursos e o formulário de cadastro em componentes Material; mostrar avisos com snackbar.</div>
+
+<h2 class="section">Roteiro</h2>
+<table class="cron compacta">
+  <tr><th>Tempo</th><th>Etapa</th><th>O que acontece</th></tr>
+  <tr><td>19:20</td><td>Etapa 0 · Git</td><td>Parar o servidor e salvar a Aula 2</td></tr>
+  <tr><td>19:25</td><td>Etapa A · Instalar</td><td>Conferir compatibilidade, <code>ng add</code> e <code>npm install</code> (roda durante a teoria)</td></tr>
+  <tr><td>19:55</td><td>Etapa B · Trocar o src</td><td>Apagar <code>src/app</code>, colar a <code>src</code> e ligar o servidor</td></tr>
+  <tr><td>20:00</td><td>TODO 1 · Bibliotecas no projeto</td><td>SharedModule + <code>provideNgxMask()</code></td></tr>
+  <tr><td>20:10</td><td>TODO 2 · Tema M3</td><td><code>mat.theme</code> + overrides</td></tr>
+  <tr><td>20:18</td><td>TODO 3 · Toolbar</td><td>Header com <code>mat-toolbar</code></td></tr>
+  <tr><td>21:10</td><td>TODO 4 · mat-card</td><td>Cursos</td></tr>
+  <tr><td>21:18</td><td>TODO 5 · Form Material + máscaras</td><td>Telefone, curso e CEP</td></tr>
+  <tr><td>21:30</td><td>TODO 6 · Snackbar</td><td>Aviso ao salvar</td></tr>
+  <tr><td>21:35</td><td>Fechamento</td><td>Budget, build e commit</td></tr>
+</table>
+
+<div class="nota"><span class="titulo">Onde rodar os comandos</span>No terminal do VS Code (<code>Ctrl + '</code>), na <b>raiz</b> do seu <code>projeto-angular-sctec</code> (a pasta que tem o <code>angular.json</code>). Nunca dentro do repositório M2S06.</div>
+
+<h2 class="section">Etapa 0 · Parar o servidor e salvar a Aula 2</h2>
+<p><b>Pare o <code>ng serve</code></b> (<code>Ctrl + C</code>). Com o servidor ligado, o Windows pode bloquear arquivos e a instalação da Etapa A falha.</p>
+<table class="cmd">
+  <tr><th>Comando</th><th>O que faz</th></tr>
+  <tr><td><code>git status</code></td><td>Mostra se a pasta é um repositório Git e o que mudou desde o último commit.</td></tr>
+</table>
+<div class="cenario">
+<h4>Cenário 1 · O projeto já tem Git (o <code>git status</code> respondeu normalmente)</h4>
+<table class="cmd">
+  <tr><td><code>git add .</code></td><td>Prepara todas as alterações para o commit.</td></tr>
+  <tr><td><code>git commit --message "feat(estilo): aula 2"</code></td><td>Cria um ponto de restauração com a Aula 2 pronta. Se a instalação der problema, você volta para cá.</td></tr>
+</table>
+<h4>Cenário 2 · Apareceu <code>fatal: not a git repository</code></h4>
+<table class="cmd">
+  <tr><td><code>git init</code></td><td>Transforma a pasta do projeto em um repositório Git.</td></tr>
+  <tr><td><code>git add .</code></td><td>Prepara todos os arquivos (o <code>.gitignore</code> deixa o <code>node_modules</code> de fora).</td></tr>
+  <tr><td><code>git commit --message "feat(estilo): aula 2"</code></td><td>Cria o primeiro ponto de restauração.</td></tr>
+</table>
+<h4>Cenário 3 · O Git pediu nome e e-mail</h4>
+<table class="cmd">
+  <tr><td><code>git config --global user.name "Seu Nome"</code></td><td>Define o nome do autor dos commits neste computador.</td></tr>
+  <tr><td><code>git config --global user.email "seu@email.com"</code></td><td>Define o e-mail do autor. Depois, repita o <code>git commit</code>.</td></tr>
+</table>
+<h4>Cenário 4 · <code>git</code> não é reconhecido como comando</h4>
+<p>Backup manual: copie a pasta <code>src</code> e os arquivos <code>angular.json</code>, <code>package.json</code> e <code>package-lock.json</code> para fora do projeto (por exemplo, <code>Documentos\backup-aula2</code>). Hoje isso é ainda mais importante, porque a instalação altera o <code>package.json</code>.</p>
+</div>
+
+<h2 class="section">Etapa A · Instalar as bibliotecas (com o servidor parado)</h2>
+<table class="cmd">
+  <tr><th>Comando</th><th>O que faz</th></tr>
+  <tr><td><code>npm view @angular/material version peerDependencies</code></td><td>Consulta, sem instalar nada, a versão mais recente do Angular Material e com quais versões do Angular ela funciona (procure <code>@angular/core: ^22...</code>).</td></tr>
+  <tr><td><code>npm view ngx-mask version peerDependencies</code></td><td>Faz a mesma conferência para a biblioteca de terceiros ngx-mask.</td></tr>
+  <tr><td><code>ng add @angular/material</code></td><td>Instala o Angular Material e o CDK <b>e configura</b> o projeto: adiciona as fontes Roboto e Material Symbols no <code>index.html</code> e um tema no <code>styles.scss</code>. Se fizer perguntas, confirme com <code>Y</code> e aceite a opção padrão com <code>Enter</code> (o tema será personalizado no TODO 2).</td></tr>
+  <tr><td><code>npm install ngx-mask</code></td><td>Só baixa a ngx-mask para o <code>node_modules</code> e registra no <code>package.json</code>. A configuração é manual (TODO 1).</td></tr>
+  <tr><td><code>git diff --stat</code></td><td>Lista quais arquivos as instalações alteraram (<code>package.json</code>, <code>package-lock.json</code>, <code>index.html</code>, <code>styles.scss</code>). Sem Git, pule este comando.</td></tr>
+</table>
+<div class="erro-comum"><span class="titulo">Se você rodar o projeto agora, ele quebra (e está tudo bem)</span><code>@use rules must be written before any other rules.</code> O <code>ng add</code> escreveu o tema <b>antes</b> dos nossos <code>@use</code> no <code>styles.scss</code>, e no Sass todos os <code>@use</code> vêm no topo. Não precisa corrigir à mão: o <code>styles.scss</code> da Etapa B já vem organizado.</div>
+<div class="atencao"><span class="titulo">Se der <code>npm ERR! ERESOLVE</code></span>É conflito de versão. <b>Não</b> use <code>--force</code>: chame o professor e confira o resultado do <code>npm view</code>.</div>
+
+<h2 class="section">Etapa B · Trocar o src</h2>
+<ol>
+  <li>No VS Code, apague a pasta <code>src/app</code>.</li>
+  <li>No repositório M2S06, copie <code>Aula3_MaterialTerceiros/src</code> e cole dentro de <code>projeto-angular-sctec</code> (<b>"Substituir os arquivos no destino"</b>). Isso substitui também o <code>index.html</code> (com as fontes) e o <code>styles.scss</code> (com os <code>@use</code> no topo).</li>
+  <li>Ligue o servidor:</li>
+</ol>
+<table class="cmd">
+  <tr><td><code>ng serve --open</code></td><td>Compila o projeto, sobe o servidor em <code>http://localhost:4200</code> e abre o navegador.</td></tr>
+</table>
+<div class="tela"><span class="titulo">Normal neste momento</span>O terminal mostra erros como <code>'mat-form-field' is not a known element</code>: os componentes do Material ainda não foram importados. O TODO 1 resolve.</div>
+
+<h2 class="section">Os TODOs</h2>
+<p>Para achar cada TODO: <code>Ctrl + Shift + F</code> e busque <code>TODO 1</code>, <code>TODO 2</code>...</p>
+<div class="passo"><h4>TODO 1 · Bibliotecas no projeto (SharedModule + provider)</h4>
+<div class="arq"><b>Arquivos:</b> <code>src/app/shared/shared-module.ts</code> (partes A e B) e <code>src/app/app.config.ts</code> (parte C)</div>
+<pre><code>// A) shared-module.ts: imports no topo do arquivo
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxMaskDirective } from 'ngx-mask';
+
+const MATERIAL = [MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule,
+                  MatInputModule, MatSelectModule, MatTooltipModule];
+
+// B) no final da lista COMPARTILHADOS
+const COMPARTILHADOS = [
+  PageHeader, CepPipe, UpperCasePipe, DatePipe,
+  FormsModule, ReactiveFormsModule, RouterLink,
+  NgxMaskDirective,
+  ...MATERIAL,
+];</code></pre>
+<pre><code>// C) app.config.ts
+import { provideNgxMask } from 'ngx-mask';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideHttpClient(),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    provideNgxMask(),
+  ],
+};</code></pre>
+<p><b>Testar:</b> terminal sem erros. O cadastro já mostra nome e e-mail no estilo Material (modelo pronto).</p></div>
+
+<div class="passo"><h4>TODO 2 · Tema Material 3 + personalização</h4>
+<div class="arq"><b>Arquivo:</b> <code>src/styles.scss</code> (depois dos <code>@use</code>, no lugar dos comentários do TODO 2)</div>
+<pre><code>// A) tema
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$orange-palette,
+        theme-type: light,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+// B) personalização pelos tokens (sem ::ng-deep)
+:root {
+  @include mat.toolbar-overrides((container-background-color: var(--azul), container-text-color: var(--branco)));
+  @include mat.button-overrides((filled-container-shape: 8px, outlined-container-shape: 8px));
+  @include mat.card-overrides((elevated-container-shape: 12px));
+}</code></pre>
+<p><b>Testar:</b> botões e campos com as cores do tema. Troque <code>$azure-palette</code> por <code>$violet-palette</code>, veja o efeito e volte.</p></div>
+
+<div class="passo"><h4>TODO 3 · Cabeçalho com mat-toolbar</h4>
+<div class="arq"><b>Arquivos:</b> <code>src/app/core/layout/header/header.ts</code> (A) e <code>header.html</code> (B)</div>
+<pre><code>// A) header.ts: imports no topo e no @Component
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+imports: [RouterLink, RouterLinkActive, MatToolbarModule, MatButtonModule, MatIconModule],</code></pre>
+<pre><code>&lt;!-- B) header.html: troque o &lt;header&gt; inteiro --&gt;
+&lt;mat-toolbar class="topo"&gt;
+  &lt;div class="marca"&gt;
+    &lt;span class="logo" aria-hidden="true"&gt;&amp;lt;/&amp;gt;&lt;/span&gt;
+    &lt;div&gt;
+      &lt;strong&gt;{{ titulo }}&lt;/strong&gt;
+      &lt;small&gt;{{ curso }}&lt;/small&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button mat-icon-button type="button" class="menu-toggle" (click)="alternarMenu()"
+          [attr.aria-expanded]="menuAberto()" aria-controls="menu-principal" aria-label="Abrir ou fechar o menu"&gt;
+    &lt;mat-icon&gt;{{ menuAberto() ? 'close' : 'menu' }}&lt;/mat-icon&gt;
+  &lt;/button&gt;
+
+  &lt;nav id="menu-principal" aria-label="Menu principal" [class.aberto]="menuAberto()" (click)="fecharMenu()"&gt;
+    &lt;a mat-button routerLink="/" routerLinkActive="ativo" [routerLinkActiveOptions]="{ exact: true }"&gt;&lt;mat-icon&gt;home&lt;/mat-icon&gt; Início&lt;/a&gt;
+    &lt;a mat-button routerLink="/cursos" routerLinkActive="ativo"&gt;&lt;mat-icon&gt;school&lt;/mat-icon&gt; Cursos&lt;/a&gt;
+    &lt;a mat-button routerLink="/alunos/cadastro" routerLinkActive="ativo"&gt;&lt;mat-icon&gt;person_add&lt;/mat-icon&gt; Cadastro&lt;/a&gt;
+    &lt;a mat-button routerLink="/contato" routerLinkActive="ativo"&gt;&lt;mat-icon&gt;mail&lt;/mat-icon&gt; Contato&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/mat-toolbar&gt;</code></pre>
+<p><b>Testar:</b> toolbar azul com ícones; no celular (375 px, <code>F12</code> → <code>Ctrl + Shift + M</code>), o botão <code>menu</code> abre o menu.</p></div>
+
+<div class="passo"><h4>TODO 4 · Cursos com mat-card</h4>
+<div class="arq"><b>Arquivo:</b> <code>src/app/features/cursos/lista-cursos/lista-cursos.html</code> (troque o <code>&lt;article&gt;</code> que está dentro do <code>@for</code>)</div>
+<pre><code>&lt;mat-card appearance="outlined" class="curso"&gt;
+  &lt;img mat-card-image [src]="curso.imagem" [alt]="'Capa do curso ' + curso.nome" loading="lazy" /&gt;
+  &lt;mat-card-header&gt;
+    &lt;mat-card-title&gt;{{ curso.nome }}&lt;/mat-card-title&gt;
+    &lt;mat-card-subtitle&gt;{{ curso.area }} · {{ curso.nivel }}&lt;/mat-card-subtitle&gt;
+  &lt;/mat-card-header&gt;
+  &lt;mat-card-content&gt;
+    &lt;p&gt;{{ curso.descricao }}&lt;/p&gt;
+  &lt;/mat-card-content&gt;
+  &lt;mat-card-actions&gt;
+    &lt;span class="carga" matTooltip="Carga horária total do curso"&gt;
+      &lt;mat-icon&gt;schedule&lt;/mat-icon&gt; {{ curso.cargaHoraria }} h
+    &lt;/span&gt;
+    &lt;a mat-flat-button routerLink="/alunos/cadastro"&gt;Inscrever&lt;/a&gt;
+  &lt;/mat-card-actions&gt;
+&lt;/mat-card&gt;</code></pre>
+<p><b>Testar:</b> cartões Material no mesmo grid da Aula 2; passe o mouse na carga horária (tooltip).</p></div>
+
+<div class="passo"><h4>TODO 5 · Formulário Material + máscaras</h4>
+<div class="arq"><b>Arquivo:</b> <code>src/app/features/alunos/cadastro-aluno/cadastro-aluno.html</code>. Siga o modelo de nome e e-mail, que já vem pronto.</div>
+<pre><code>&lt;!-- A) telefone e curso: no lugar dos dois &lt;div class="campo"&gt; antigos --&gt;
+&lt;mat-form-field appearance="outline"&gt;
+  &lt;mat-label&gt;Telefone&lt;/mat-label&gt;
+  &lt;input matInput formControlName="telefone" mask="(00) 0000-0000||(00) 00000-0000" inputmode="numeric" /&gt;
+  &lt;mat-icon matPrefix&gt;call&lt;/mat-icon&gt;
+  &lt;mat-error&gt;Use DDD + telefone (10 ou 11 números).&lt;/mat-error&gt;
+&lt;/mat-form-field&gt;
+
+&lt;mat-form-field appearance="outline"&gt;
+  &lt;mat-label&gt;Curso&lt;/mat-label&gt;
+  &lt;mat-select formControlName="curso"&gt;
+    @for (curso of cursos; track curso) {
+      &lt;mat-option [value]="curso"&gt;{{ curso }}&lt;/mat-option&gt;
+    }
+  &lt;/mat-select&gt;
+  &lt;mat-icon matPrefix&gt;school&lt;/mat-icon&gt;
+  &lt;mat-error&gt;Escolha um curso.&lt;/mat-error&gt;
+&lt;/mat-form-field&gt;
+
+&lt;!-- B) CEP: no lugar do &lt;div class="campo"&gt; do CEP --&gt;
+&lt;mat-form-field appearance="outline" class="campo-cep"&gt;
+  &lt;mat-label&gt;CEP&lt;/mat-label&gt;
+  &lt;input matInput formControlName="cep" mask="00000-000" inputmode="numeric" /&gt;
+  &lt;button mat-icon-button matSuffix type="button" (click)="buscarCep()" [disabled]="carregando()"
+          matTooltip="Buscar endereço pelo CEP" aria-label="Buscar CEP"&gt;
+    &lt;mat-icon&gt;{{ carregando() ? 'hourglass_top' : 'search' }}&lt;/mat-icon&gt;
+  &lt;/button&gt;
+  &lt;mat-hint&gt;Digite o CEP e clique na lupa&lt;/mat-hint&gt;
+  &lt;mat-error&gt;O CEP precisa ter 8 números.&lt;/mat-error&gt;
+&lt;/mat-form-field&gt;
+@if (erroCep()) { &lt;p class="erro"&gt;{{ erroCep() }}&lt;/p&gt; }
+
+&lt;!-- C) botões --&gt;
+&lt;button mat-flat-button type="submit"&gt;&lt;mat-icon&gt;save&lt;/mat-icon&gt; Salvar cadastro&lt;/button&gt;
+&lt;button mat-stroked-button type="button" (click)="limpar()"&gt;Limpar&lt;/button&gt;</code></pre>
+<p><b>Testar:</b> digite <code>48999998888</code>: a tela mostra <code>(48) 99999-8888</code>, e o resumo salvo mostra só os números. CEP <code>88010000</code> → lupa → endereço de Florianópolis. Depois do TODO 5, o método <code>invalido()</code> do <code>.ts</code> pode ser apagado.</p></div>
+
+<div class="passo"><h4>TODO 6 · Aviso com MatSnackBar</h4>
+<div class="arq"><b>Arquivo:</b> <code>src/app/features/alunos/cadastro-aluno/cadastro-aluno.ts</code></div>
+<pre><code>// A) import no topo e o service na classe
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+private snackBar = inject(MatSnackBar);
+
+// B) e C) dentro do método enviar()
+enviar(): void {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    this.snackBar.open('Confira os campos destacados em vermelho.', 'OK', { duration: 3000 });
+    return;
+  }
+  const dados = this.form.getRawValue();
+  this.alunoSalvo.set({ ...dados, cadastradoEm: new Date() });
+  this.snackBar.open(`Aluno ${dados.nome} cadastrado com sucesso!`, 'Fechar', { duration: 4000 });
+}</code></pre>
+<p><b>Testar:</b> salvar vazio mostra o aviso de erro; salvar válido mostra o de sucesso no rodapé da tela.</p></div>
+
+<h2 class="section">Fechamento</h2>
+<p>Em um <b>segundo terminal</b> (botão <b>+</b> no painel do terminal), para não parar o <code>ng serve</code>:</p>
+<table class="cmd">
+  <tr><th>Comando</th><th>O que faz</th></tr>
+  <tr><td><code>ng build</code></td><td>Gera a versão de produção e confere se não há erros. Hoje deve aparecer um <b>aviso de budget</b> (explicado abaixo).</td></tr>
+</table>
+<div class="atencao"><span class="titulo">Aviso de budget</span><code>bundle initial exceeded maximum budget</code> (≈524 kB &gt; 500 kB): o cabeçalho é carregado logo no início e agora usa o Material. É um <b>aviso</b>, não um erro. Decisão consciente: no <code>angular.json</code> → <code>configurations &gt; production &gt; budgets</code>, no item <code>"type": "initial"</code>, troque <code>"maximumWarning": "500kB"</code> por <code>"700kB"</code> e rode <code>ng build</code> de novo.</div>
+<table class="cmd">
+  <tr><td><code>git add .</code></td><td>Prepara todas as alterações da aula (incluindo <code>package.json</code> e <code>package-lock.json</code> com as bibliotecas novas).</td></tr>
+  <tr><td><code>git commit --message "feat(ui): angular material e ngx-mask"</code></td><td>Salva a Aula 3 como um novo ponto de restauração.</td></tr>
+  <tr><td><code>git push</code></td><td><b>Só se o projeto já estiver ligado ao GitHub:</b> envia os commits. Se ainda não estiver, veja o quadro "Ainda não ligou o projeto ao GitHub?" do passo a passo da Aula 1.</td></tr>
+</table>
+<div class="nota"><span class="titulo">Em outro computador</span>Depois de clonar o projeto, rode <code>npm install</code>: ele lê o <code>package.json</code> e baixa o Material e a ngx-mask para o <code>node_modules</code>, que não vai para o GitHub.</div>
+
+<h3 class="checklist-final">Checklist final da semana</h3>
+<ul class="checklist">
+  <li>Aula 2 salva (commit ou backup) antes de instalar</li>
+  <li>Material e ngx-mask instalados (compatíveis com Angular 22)</li>
+  <li>Tema M3 com overrides (sem <code>::ng-deep</code>)</li>
+  <li>Toolbar, mat-cards, form fields, select, tooltip e snackbar funcionando</li>
+  <li>Máscaras de telefone e CEP, com o formulário guardando só números</li>
+  <li>Layout responsivo da Aula 2 preservado</li>
+  <li><code>ng build</code> sem erros e commit feito</li>
+</ul>
+
+<h2 class="section">Erros comuns</h2>
+<table>
+  <tr><th>Sintoma</th><th>Causa</th><th>Solução</th></tr>
+  <tr><td><code>EBUSY</code> ou <code>EPERM</code> durante a instalação</td><td>Servidor ligado bloqueando arquivos</td><td><code>Ctrl + C</code> no <code>ng serve</code> e repetir o comando</td></tr>
+  <tr><td><code>@use rules must be written before any other rules</code></td><td>Tema do <code>ng add</code> antes dos <code>@use</code></td><td>Etapa B (o <code>styles.scss</code> colado já corrige)</td></tr>
+  <tr><td><code>'mat-form-field' is not a known element</code></td><td>Módulo do Material não importado</td><td>TODO 1 (SharedModule)</td></tr>
+  <tr><td><code>mat-form-field must contain a MatFormFieldControl</code></td><td>Faltou <code>matInput</code></td><td><code>&lt;input matInput ...&gt;</code></td></tr>
+  <tr><td>Ícone aparece como texto ("menu")</td><td>Fonte Material Symbols não carregou</td><td>Conferir o <code>&lt;link&gt;</code> no <code>index.html</code> e a internet</td></tr>
+  <tr><td><code>NullInjectorError</code> citando ngx-mask</td><td>Faltou <code>provideNgxMask()</code></td><td>TODO 1 parte C</td></tr>
+  <tr><td><code>npm ERR! ERESOLVE</code></td><td>Versão incompatível</td><td>Conferir <code>peerDependencies</code>; não usar <code>--force</code></td></tr>
+</table>
+
+  <footer>Desenvolvimento Front-End [Angular] T1 - SENAI/SC - Passo a passo da Aula 3, Semana 6</footer>
+</div>
+</body>
+</html>
